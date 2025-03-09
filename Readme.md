@@ -1,38 +1,55 @@
-# MacStageFlow
+# Window Resizer for Stage Manager
 
-MacStageFlow is a simple utility that automatically resizes your active window to perfectly complement macOS Stage Manager. It ensures your windows are positioned and sized optimally, maintaining visibility of the Stage Manager sidebar while maximizing usable space.
+This script intelligently resizes the active window to accommodate Stage Manager thumbnails while preserving UI visibility.
 
 ## Features
 
-- Automatically resizes the active window to fit perfectly with Stage Manager
-- Maintains visibility of Stage Manager sidebar
-- Considers screen resolution dynamically
-- Works with any application window
-- Can be triggered via Shortcuts app or Alfred
+- Automatically resizes active window to work with Stage Manager
+- Preserves UI visibility by using intelligent resizing
+- Maintains window aspect ratio when possible
+- Includes safety margins to prevent UI clipping
+- Works with all applications
 
-## Requirements
+## Setup Instructions
 
-- macOS with Stage Manager support (macOS Ventura or later)
-- Apple's Shortcuts app
-
-## Installation
-
-### Option 1: Manual Installation
-
-1. Clone this repository:
-
-   ```bash
-   git clone https://github.com/edaneshi/MacStageFlow.git
+1. Save the script to a permanent location (e.g., `~/Documents/Scripts/`)
+2. Open Apple Shortcuts app
+3. Create a new shortcut
+4. Add a "Run Shell Script" action
+5. Enter the following command (adjust path as needed):
    ```
+   osascript -l JavaScript /path/to/resizeWindow.js
+   ```
+6. Save the shortcut
+7. Optionally, assign a keyboard shortcut in System Settings > Keyboard > Keyboard Shortcuts
 
-2. Open the Shortcuts app on your Mac
-3. Click the '+' button to create a new shortcut
-4. Add a "Run Shell Script" action (you can search for it in the actions panel)
-5. Configure the shell script action:
-   - Set Shell to `/bin/zsh`
-   - Leave "Pass Input" as "to stdin"
-6. Copy and paste the entire script from `resize_window.sh` into the script text area
+## How It Works
 
-## License
+The script:
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+1. Gets the active window dimensions
+2. Calculates optimal size accounting for Stage Manager
+3. Applies intelligent resizing with safety margins
+4. Validates and adjusts position if needed
+
+## Technical Details
+
+- Uses JavaScript for Automation (JXA)
+- Maintains minimum window width of 800px
+- Includes 90px allowance for Stage Manager
+- Adds 10px safety margin to prevent UI clipping
+
+## Troubleshooting
+
+If the window doesn't resize properly:
+
+1. Ensure the script has execute permissions (`chmod +x resizeWindow.js`)
+2. Check that the application window is active
+3. Verify the script path in Shortcuts is correct
+4. Make sure Stage Manager is enabled
+
+## Known Limitations
+
+- Works best with standard window layouts
+- Some applications may have unique UI requirements
+- Minimum window width of 800px is enforced to maintain usability
